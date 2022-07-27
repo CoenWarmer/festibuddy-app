@@ -230,9 +230,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@festibuddy/web-client-server-app@workspace:packages/nextjs-app":
+"@festibuddy/web-client-server-app@workspace:packages/web-client-server-app":
   version: 0.0.0-use.local
-  resolution: "@festibuddy/web-client-server-app@workspace:packages/nextjs-app"
+  resolution: "@festibuddy/web-client-server-app@workspace:packages/web-client-server-app"
   dependencies:
     "@next-auth/prisma-adapter": ^1.0.4
     "@prisma/client": ^4.1.0
