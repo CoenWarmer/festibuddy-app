@@ -1,0 +1,5 @@
+{
+  "extends": "@festibuddy/config-lib/nextjs.json",
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
