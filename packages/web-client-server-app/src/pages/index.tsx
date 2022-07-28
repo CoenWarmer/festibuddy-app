@@ -1,15 +1,9 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { trpc } from '../utils/trpc';
 import { Button } from '@festibuddy/uikit-lib';
 import styled from 'styled-components';
 
 const Home: NextPage = () => {
-  const { data, isLoading } = trpc.useQuery([
-    'example.hello',
-    { text: 'from tRPC' },
-  ]);
-
   return (
     <>
       <Head>
@@ -22,6 +16,17 @@ const Home: NextPage = () => {
       </Head>
       <Container>
         <h1>Festibuddy</h1>
+
+        <Form>
+          <Label>Username</Label>
+          <input />
+          <Label>Password</Label>
+          <input />
+          <Label>I agree with receiving notifications</Label>
+          <Checkbox type="checkbox" />
+          We will only use this so you can retrieve your account details.
+        </Form>
+
         <Actions>
           <Button>Log in</Button>
           <Button>Register</Button>
@@ -44,4 +49,20 @@ const Container = styled.div`
 const Actions = styled.div`
   display: flex;
   gap: 12px;
+  margin-top: 24px;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const Label = styled.label`
+  font-weight: bold;
+`;
+
+const Checkbox = styled.input`
+  display: flex;
+  align-self: baseline;
 `;

@@ -249,6 +249,7 @@ __metadata:
     eslint-config-next: 12.2.3
     next: 12.2.3
     next-auth: ^4.10.2
+    nodemailer: ^6.7.7
     prisma: ^4.1.0
     react: 18.2.0
     react-dom: 18.2.0
@@ -2325,6 +2326,13 @@ __metadata:
   bin:
     next: dist/bin/next
   checksum: b13b42fbb327adca51abeef68aca4b31c82297f07eb3a12d31a3bf2c1aa9ca34cf1ab41bc2b9f4d3162623e70a1ddf230da39fd3ce241b1eea113a4a010a11fd
+  languageName: node
+  linkType: hard
+
+"nodemailer@npm:^6.7.7":
+  version: 6.7.7
+  resolution: "nodemailer@npm:6.7.7"
+  checksum: 337cee85bd040ced14b09700032b8dcbb74266a4201a4ab55683412a008cc8d8f3a13e8eef37ebee93aa11bb07f6cd02de650025211a0c0884be3d1ca839f869
   languageName: node
   linkType: hard
 
