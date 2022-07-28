@@ -2,8 +2,19 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Button } from '@festibuddy/uikit-lib';
 import styled from 'styled-components';
+import { useQuery } from 'react-query';
+import { trpc } from '../utils/trpc';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 const Home: NextPage = () => {
+  const { data: secretMessage, isLoading } = trpc.useQuery([
+    'question.getSecretMessage',
+  ]);
+
+  const { data: sessionData } = useSession();
+
+  console.log('sessionData', sessionData);
+
   return (
     <>
       <Head>
@@ -17,19 +28,11 @@ const Home: NextPage = () => {
       <Container>
         <h1>Festibuddy</h1>
 
-        <Form>
-          <Label>Username</Label>
-          <input />
-          <Label>Password</Label>
-          <input />
-          <Label>I agree with receiving notifications</Label>
-          <Checkbox type="checkbox" />
-          We will only use this so you can retrieve your account details.
-        </Form>
-
+        {sessionData ? <div>Welcome, {sessionData.user.name}!</div> : null}
         <Actions>
-          <Button>Log in</Button>
-          <Button>Register</Button>
+          <Button onClick={sessionData ? () => signOut() : () => signIn()}>
+            {sessionData ? 'Sign out' : 'Sign in'}
+          </Button>
         </Actions>
       </Container>
     </>
