@@ -1,10 +1,12 @@
+import { Button } from '@festibuddy/uikit-lib';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { Button } from '@festibuddy/uikit-lib';
-import styled from 'styled-components';
-import { useQuery } from 'react-query';
-import { trpc } from '../utils/trpc';
+import Router from 'next/router';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useEffect } from 'react';
+import styled from 'styled-components';
+
+import { trpc } from '../utils/trpc';
 
 const Home: NextPage = () => {
   const { data: secretMessage, isLoading } = trpc.useQuery([
@@ -12,8 +14,13 @@ const Home: NextPage = () => {
   ]);
 
   const { data: sessionData } = useSession();
+  const { pathname } = Router;
 
-  console.log('sessionData', sessionData);
+  useEffect(() => {
+    if (pathname === '/') {
+      Router.push('/hello-nextjs');
+    }
+  });
 
   return (
     <>
