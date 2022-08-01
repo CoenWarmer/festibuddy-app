@@ -7,6 +7,7 @@ import {
   PopupProps,
   TileLayerProps,
 } from 'react-leaflet';
+import { LatLngExpression } from 'leaflet';
 
 export const MapContainer = memo(
   dynamic<MapContainerProps>(
@@ -37,7 +38,7 @@ interface MapProps {
 }
 
 export const Map: React.FC<MapProps> = ({ lat, long }) => {
-  const position = [lat, long];
+  const position: LatLngExpression = [lat, long];
 
   return (
     <MapContainer center={position} zoom={13}>
