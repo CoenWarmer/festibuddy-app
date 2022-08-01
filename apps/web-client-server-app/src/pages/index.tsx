@@ -1,29 +1,27 @@
-import { Button } from '@festibuddy/uikit-lib';
+import { Button, LoadingSpinner, Title } from '@festibuddy/uikit-lib';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 
-import { trpc } from '../utils/trpc';
+import { PageLayout } from '../components/PageLayout';
 
 const Home: NextPage = () => {
-  const { data: secretMessage, isLoading } = trpc.useQuery([
-    'question.getSecretMessage',
-  ]);
-
-  const { data: sessionData } = useSession();
-  const { pathname } = Router;
+  const { data: sessionData, status } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
-    if (pathname === '/') {
-      Router.push('/hello-nextjs');
-    }
-  });
+    setTimeout(() => {
+      if (sessionData) {
+        router.push('/profile');
+      }
+    }, 2000);
+  }, [router, sessionData]);
 
   return (
-    <>
+    <PageLayout>
       <Head>
         <title>Festibuddy</title>
         <meta
@@ -33,16 +31,19 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <h1>Festibuddy</h1>
+        <Title>Festibuddy</Title>
 
-        {sessionData ? <div>Welcome, {sessionData.user.name}!</div> : null}
+        {status === 'authenticated' ? (
+          <LoadingSpinner loading color="#ff0000" />
+        ) : null}
+
         <Actions>
           <Button onClick={sessionData ? () => signOut() : () => signIn()}>
             {sessionData ? 'Sign out' : 'Sign in'}
           </Button>
         </Actions>
       </Container>
-    </>
+    </PageLayout>
   );
 };
 
@@ -60,19 +61,4 @@ const Actions = styled.div`
   display: flex;
   gap: 12px;
   margin-top: 24px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
-
-const Label = styled.label`
-  font-weight: bold;
-`;
-
-const Checkbox = styled.input`
-  display: flex;
-  align-self: baseline;
 `;

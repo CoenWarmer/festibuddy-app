@@ -3,11 +3,20 @@ import styled from 'styled-components';
 
 interface ButtonProps {
   children: React.ReactNode;
+  disabled?: boolean;
   onClick: () => void;
 }
 
-export const Button: React.FC<ButtonProps> = ({ children, onClick }) => {
-  return <StyledButton onClick={onClick}>{children}</StyledButton>;
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  disabled,
+  onClick,
+}) => {
+  return (
+    <StyledButton disabled={disabled} onClick={onClick}>
+      {children}
+    </StyledButton>
+  );
 };
 
 const StyledButton = styled.button`
